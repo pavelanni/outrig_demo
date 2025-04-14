@@ -117,3 +117,34 @@ While running these commands, use Outrig to observe:
 * Memory allocation and deallocation
 * Variable value changes
 * Runtime statistics
+
+## Running as a Container
+
+You can also run the demo as a container:
+
+1. Build the container image:
+
+   ```bash
+   podman build -t outrig-demo .
+   ```
+
+2. Run the container:
+
+   ```bash
+   podman run -d -p 8080:8080 --name outrig-demo outrig-demo
+   ```
+
+3. Access the application:
+
+   ```bash
+   curl http://localhost:8080/stats
+   ```
+
+4. To stop and remove the container:
+
+   ```bash
+   podman stop outrig-demo
+   podman rm outrig-demo
+   ```
+
+Note: When running in a container, you'll need to ensure the Outrig UI is running on your host machine and properly configured to connect to the containerized application.
