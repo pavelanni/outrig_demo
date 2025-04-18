@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"log/slog"
 	"net/http"
 	"sync"
@@ -31,7 +30,9 @@ var (
 )
 
 func main() {
-	err := outrig.Init(nil)
+	outrigConfig := outrig.DefaultConfig()
+	outrigConfig.AppName = "OutrigDemo"
+	_, err := outrig.Init(outrigConfig)
 	if err != nil {
 		slog.Error("Failed to initialize Outrig", "error", err)
 		return
@@ -41,12 +42,12 @@ func main() {
 	config.MaxMemoryMB = 100
 	config.DebugMode = false
 
-	outrig.WatchFunc("app.config", func() string {
-		return fmt.Sprintf("%+v", config)
-	}, nil)
-	outrig.WatchFunc("app.memory", func() string {
-		return fmt.Sprintf("%d", len(memoryAllocated))
-	}, nil)
+	outrig.WatchFunc("app.config", func() Config {
+		return config
+	})
+	outrig.WatchFunc("app.memory", func() int {
+		return len(memoryAllocated)
+	})
 
 	outrig.WatchCounterSync("app.request_count", &requestMutex, &requestCount)
 	// Set up HTTP server

@@ -2,9 +2,11 @@ module outrig_demo
 
 go 1.24
 
-require github.com/outrigdev/outrig v0.1.8
+require github.com/outrigdev/outrig v0.2.0
 
 require (
+	github.com/Masterminds/semver/v3 v3.2.0 // indirect
+	github.com/emirpasic/gods v1.18.1 // indirect
 	github.com/go-ole/go-ole v1.2.6 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/lufia/plan9stats v0.0.0-20211012122336-39d0f177ccd0 // indirect
